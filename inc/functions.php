@@ -6,9 +6,12 @@
 // 'klasa' => 'Klasy'
 // );
 
+
+$ret=array();//tablica asocjacyjna, ktora bedzie zawierala wyniki zapytan
+
+
 function get_menu($id){
-global $db;
-$ret=array();
+global $db,$ret;
 db_query('SELECT * FROM menu', $ret);
 //print_r($ret);
  foreach ($ret as $k => $t) {
@@ -22,10 +25,14 @@ echo '
 
 
 function get_page_title($id){
-global $pages;
-if (array_key_exists($id, $pages))
-	echo $pages[$id];
-else
+global $ret;
+foreach ($ret as $k => $t) {
+	if ($t['plik'] == $id){
+		echo $t['tytul'];
+		return;
+	}
+}
+//tytul domuslny
 	echo 'Aplikacja PHP';
 }
 

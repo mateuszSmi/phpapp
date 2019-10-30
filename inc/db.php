@@ -24,7 +24,7 @@ function init_tables() {
 function db_query($q,&$ret){
 	global $db;
 	try {
-		$r = $db->query($q);
+		$r = $db->query($q, PDO::FETCH_ASSOC);
 	} catch(PODException $e){
 		echo ($e->getMessage());
 	}
