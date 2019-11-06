@@ -15,17 +15,16 @@ function init_tables() {
 		$sql = file_get_contents(DBASE.'baza.sql', 'r');
 		$q = "SELECT name FROM sqlite_master WHERE type='table'AND name='menu'";
 		$ret = $db->query($q);
-		if (empty($ret)){
-			$db->exec($sql);
-			$kom[] = "Utworzono tabele!";
-		}
+			//$db->exec($sql);
+			//$kom[] = "Utworzono tabele!";
+
 	}
 }
 function db_query($q,&$ret){
 	global $db;
 	try {
 		$r = $db->query($q, PDO::FETCH_ASSOC);
-	} catch(PODException $e){
+	} catch(PDOException $e){
 		echo ($e->getMessage());
 	}
 	if ($r){
