@@ -20,6 +20,39 @@ class User {
 			}
 			return false;
 		}
+
+
+function __set($k,$v){
+$this->dane[$k]=$v;
+}
+function __get($k) {
+	if (array_key_exists($k, $this->dane))
+	return $this->dane[$k];
+else
+	return null;
 }
 
+function is_login($login) {
+		$qstr='SELECT id FROM users WHERE login=\''.$login.'\' LIMIT 1';
+    if (db_query($qstr)) return true;
+    return false;
+	}
+
+	function is_email($email) {
+		$qstr='SELECT id FROM users WHERE email=\''.$email.'\' LIMIT 1';
+    if (db_query($qstr)) return true;
+    return false;
+	}
+  function savtb() {//tab. asocjacyjna z kluczami: id#nick#haslo#email#datad
+		if (strlen($this->haslo)<40) $this->haslo=sha1($this->haslo);
+		$this->llog=time();
+		if (!$this->id) {
+			$qstr='INSERT INTO users VALUES (NULL,\''.$this->login.'\',\''.$this->haslo.'\',\''.$this->email.'\',time())';
+			$ret=db_exec($qstr);
+			$id = db_lastInsertID();
+		}
+		if ($ret) return true;
+		return false;
+	}
+}
 ?>

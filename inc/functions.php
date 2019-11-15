@@ -43,4 +43,15 @@ else
 	include('404.html');
 
 }
+function clrtxt(&$el, $maxdl=30) {
+    if (is_array($el)) {
+        return array_map('clrtxt', $el);
+    } else {
+        $el = trim($el);
+        $el = substr($el, 0, $maxdl);
+        if (get_magic_quotes_gpc()) $el = stripslashes($el);
+        $el = htmlspecialchars($el, ENT_QUOTES);
+        return $el;
+    }
+}
 ?>
